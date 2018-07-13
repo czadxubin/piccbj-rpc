@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS ssm_framwork DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
-use ssm_framwork;
+CREATE DATABASE IF NOT EXISTS ssm_framework DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
+use ssm_framework;
 -- ”√ªß±Ì
 drop table if exists sys_user;
 create Table sys_user(

@@ -34,8 +34,19 @@
 	
 	<!-- welcome-file -->
 	<mvc:view-controller path="/" view-name="/home"/>
+	<mvc:view-controller path="/login" view-name="/login"/>
+	<mvc:view-controller path="/home" view-name="home"/>
 	<!-- 开启spring mvc注解 -->
-	<mvc:annotation-driven />
+	<mvc:annotation-driven >
+		<mvc:message-converters>
+			<ref bean="byteArrayHttpMessageConverter"/>
+			<ref bean="stringHttpMessageConverter"/>
+			<ref bean="jsonHttpMessageConveter"/>
+			<ref bean="sourceHttpMessageConverter"/>
+			<ref bean="allEncompassingFormHttpMessageConverter"/>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/"></property>
 		<property name="suffix" value=".jsp"></property>
@@ -43,4 +54,23 @@
 	<!-- 静态资源处理  单元测试需要关闭 -->
 	<mvc:resources location="/WEB-INF/statics/" mapping="/statics/**"></mvc:resources>
 	
+	<!--  
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"></bean>
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				
+				
+			</list>
+		</property>
+	</bean>
+	-->
+	<!-- HttpMessageConvertor Beans-->
+	<bean id="byteArrayHttpMessageConverter" class="org.springframework.http.converter.ByteArrayHttpMessageConverter"></bean>
+	<bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
+		<property name="writeAcceptCharset" value="false"></property>
+	</bean>
+	<bean id="jsonHttpMessageConveter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>
+	<bean id="sourceHttpMessageConverter" class="org.springframework.http.converter.xml.SourceHttpMessageConverter"></bean>
+	<bean id="allEncompassingFormHttpMessageConverter" class="org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter"></bean>
 </beans>

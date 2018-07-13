@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,16 +14,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.ForwardAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 
 import com.xbz.ssmframework.security.authentication.dao.SysDaoAuthenticationProvider;
-import com.xbz.ssmframework.security.authentication.filter.SSOServerLoginFilter;
-import com.xbz.ssmframework.security.authentication.filter.SysUsernamePasswordAuthenticationFilter;
 import com.xbz.ssmframework.security.authentication.service.SysJdbcUserDetailService;
+import com.xbz.ssmframework.security.oauth2.authentication.SSOServerLoginFilter;
 
 /**
  * Oauth资源服务器启动的SpringSecurity顺序是3默认EnableWebSecurity启动顺序是100（深坑）
@@ -34,7 +29,6 @@ import com.xbz.ssmframework.security.authentication.service.SysJdbcUserDetailSer
  */
 @Configuration
 @EnableWebSecurity
-@Order(2)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	private Logger logger = LoggerFactory.getLogger(SpringSecurityConfig.class); 
 	@Bean
@@ -59,7 +53,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		filter.setAuthenticationManager(authenticationManagerBean());
 		filter.setAllowSessionCreation(true);
 		filter.setAuthenticationFailureHandler(new SimpleUrlAuthenticationFailureHandler("/login?error"));
-		filter.setAuthenticationSuccessHandler(new ForwardAuthenticationSuccessHandler("/"));
+//		filter.setAuthenticationSuccessHandler(new SimpleUrlAuthenticationSuccessHandler("/"));//成功登陆后跳转策略
 		return filter;
 	}
 	@Bean
@@ -79,9 +73,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
 		.and()
 		.addFilterBefore(usernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+		.regexMatcher("^(?!/api/).*$")	//匹配不以/api/开头的路径
 		.authorizeRequests()
 		.antMatchers("/login").permitAll()
-		.antMatchers("/api/**","/oauth/**").permitAll()
 		.antMatchers("/**").hasAnyRole("USER","ADMIN")
 		.and()
 			.formLogin()
@@ -97,7 +91,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/statics/**","/app/**","/oauth/**");
+//		web.ignoring().antMatchers("/statics/**","/app/**","/oauth/**");
+		web.ignoring().antMatchers("/statics/**");
 	}
 	
 }

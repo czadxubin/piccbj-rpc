@@ -10,7 +10,13 @@
 	<artifactId>sso-client-one</artifactId>
 	<packaging>jar</packaging>
 	<description>单点客户端One</description>
-	
+	<dependencies>
+		<dependency>
+			<artifactId>spring-security-oauth2</artifactId>
+			<groupId>org.springframework.security.oauth</groupId>
+			<version>2.3.3.RELEASE</version>
+		</dependency>
+	</dependencies>
 	<build>
 	<finalName>sso-client-one</finalName>
 	<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>

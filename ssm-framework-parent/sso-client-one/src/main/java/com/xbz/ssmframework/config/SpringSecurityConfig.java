@@ -69,6 +69,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		logger.debug("SpringSecurity安全配置....");
 		http
+		.csrf().disable()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
 		.and()
 		.addFilterBefore(usernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)

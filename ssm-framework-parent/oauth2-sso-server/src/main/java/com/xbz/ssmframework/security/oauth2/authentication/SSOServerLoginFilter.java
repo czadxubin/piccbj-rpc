@@ -1,4 +1,4 @@
-package com.xbz.ssmframework.security.authentication.filter;
+package com.xbz.ssmframework.security.oauth2.authentication;
 
 import java.io.IOException;
 
