@@ -3,6 +3,7 @@
 	<name>sso-client-one</name>
 	<comment></comment>
 	<projects>
+		<project>icode-framework-base</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

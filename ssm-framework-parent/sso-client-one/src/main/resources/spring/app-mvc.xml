@@ -28,12 +28,15 @@
         ">
 	<!-- spring mvc 相关配置  -->
 	<context:annotation-config />
-	<context:component-scan base-package="com.xbz.ssmframework"  use-default-filters="false">
+	<context:component-scan base-package="com.icode.ssmframework"  use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
 	<!-- welcome-file -->
 	<mvc:view-controller path="/" view-name="/home"/>
+	<mvc:view-controller path="/login" view-name="/login"/>
+	<mvc:view-controller path="/home" view-name="home"/>
+	<mvc:view-controller path="/403" view-name="403"/>
 	<!-- 开启spring mvc注解 -->
 	<mvc:annotation-driven />
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

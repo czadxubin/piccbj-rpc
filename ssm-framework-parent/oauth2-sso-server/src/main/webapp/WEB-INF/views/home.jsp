@@ -5,15 +5,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>个人主页</title>
+<title>icode认证中心</title>
 </head>
 <body>
-	<h1>个人主页</h1>
+	<h1>认证中心</h1>
 	<hr/>
 	<form id="logoutFormId" action="${pageContext.request.contextPath }/logout" method="POST">
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-	欢迎,${LOGIN_USER_INFO.nickName }<a href="javascript:logout()">登出</a>
+	欢迎${LOGIN_USER_INFO.user.nickName },来到来到认证中心	<a href="javascript:logout()"><p title="目前暂不支持登陆应用群同时退出">登出</p></a>
 	</form>
+	<hr/>
+	<a href="http://localhost:8888/sso-client-one">MyApp</a>
 </body>
 <script type="text/javascript">
 function logout(){

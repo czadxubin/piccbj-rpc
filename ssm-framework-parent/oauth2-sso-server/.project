@@ -3,6 +3,7 @@
 	<name>oauth2-sso-server</name>
 	<comment></comment>
 	<projects>
+		<project>icode-framework-base</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -13,7 +13,7 @@
  
   <filter>
     <filter-name>correctLocaleFilter</filter-name>
-    <filter-class>com.xbz.ssmframework.security.authentication.filter.CorrectLocaleFilter</filter-class>
+    <filter-class>com.icode.ssmframework.core.security.filter.CorrectLocaleFilter</filter-class>
   </filter>
   <filter>
     <filter-name>springSecurityFilterChain</filter-name>
