@@ -1,0 +1,20 @@
+<select>
+  SELECT *
+  FROM POST P
+  <where>
+	<if test="list!=null">
+		ID in  
+	  <foreach item="item" index="index" collection="list"
+	      open="(" separator="," close=")">
+	        #{item}
+	  </foreach>
+	</if>
+  <if test="title != null">
+   <bind name="pattern" value="'%' + _parameter.getTitle() + '%'" />
+        AND title like #{pattern}
+   </if>
+   <if test="author != null and author.name != null">
+       AND author_name like #{author.name}
+   </if>
+  </where> 
+</select>
